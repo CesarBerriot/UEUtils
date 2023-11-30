@@ -27,7 +27,7 @@ bool UEUtils::Console::CreateConsole()
 bool UEUtils::Console::KillConsole()
 {
 	//TODO TEST - UNTESTED CODE
-	return ConsoleExists() && FreeConsole() && !fclose(cin) && fclose(cout) && ((bool)(cin = nullptr) || (bool)(cout = nullptr) || true);
+	return ConsoleExists() && FreeConsole() && fclose(cin) && fclose(cout) && ((bool)(cin = nullptr) || (bool)(cout = nullptr) || true);
 }
 
 bool UEUtils::Console::Log(FString const & _str)

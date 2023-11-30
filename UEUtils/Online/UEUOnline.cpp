@@ -1,5 +1,5 @@
 #ifdef UEUTILS_ONLINE_IMPLEMENTATION
-#include "Online.h"
+#include "Online.nh"
 #include "OnlineSessionSettings.h"
 #include "OnlineSubsystem.h"
 #include "GameFramework/GameModeBase.h"
@@ -103,7 +103,7 @@ TArray<TSharedRef<FOnlineFriend>> Online::GetAllSessionMembersButHost()
 uint64 Online::SteamWorksFunctions::GetLobbyID()
 {
 	if(IOnlineSessionPtr const _sessionsInterface = IOnlineSubsystem::Get()->GetSessionInterface(); _sessionsInterface.Get())
-		if(FNamedOnlineSession const * const _session = _sessionsInterface->GetNamedSession(PartyGameUtils::Online::SESSION_NAME))
+		if(FNamedOnlineSession const * const _session = _sessionsInterface->GetNamedSession(UEUtils::Online::SESSION_NAME))
 			if(auto const & _sessionInfo = _session->SessionInfo; _sessionInfo.IsValid())
 				if(FUniqueNetIdRepl const & _sessionID = _sessionInfo->GetSessionId(); _sessionID.IsValid())
 					return _wtoi64(*_sessionID.ToString());

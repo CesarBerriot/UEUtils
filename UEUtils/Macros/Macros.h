@@ -1,7 +1,29 @@
 #pragma once
 
+#pragma region Template Conditions
+//TODO move this to the Templates namespace and make an actual type
+#define TIsUObjectPtr(x)\
+TIsDerivedFrom\
+<\
+	TRemoveCV\
+	<\
+		TRemovePointer\
+		<\
+			TRemoveCV\
+			<\
+				TRemoveReference<decltype(x)>::Type\
+			>::Type\
+		>::Type\
+	>::Type,\
+	UObject\
+>
+#pragma endregion Template Conditions
+
 #pragma region Checks
-#define checkValidPtr(ptr) checkf(ptr, L"pointer '%hs' in instance of class '%ls' was invalid !", #ptr, *ThisClass::StaticClass()->GetName())
+
+#define checkProperty(Property) checkf((TIsUObjectPtr(Property)::Value) ? IsValid((UObject const * const &)Property) : (bool)Property, L"property '%hs' in instance of class '%ls' was invalid !", #Property, *ThisClass::StaticClass()->GetName())
+
+#define checkPtr(Ptr) checkf((TIsUObjectPtr(Ptr)::Value) ? IsValid((UObject const * const &)Ptr) : (bool)Ptr, L"pointer '%hs' in instance of class '%ls' was invalid !", #Ptr, *ThisClass::StaticClass()->GetName())
 
 #define checkIsBlueprint() checkf(GetClass() != ThisClass::StaticClass(), L"class %ls Instance Initialization : failed IsBlueprint check", *ThisClass::StaticClass()->GetName());
 #define checkIsWidgetBlueprint() checkf(GetClass() != ThisClass::StaticClass(), L"%ls::NativeConstruct : failed IsBlueprint check", *ThisClass::StaticClass()->GetName());
