@@ -3,13 +3,10 @@
 #include "OnlineSessionSettings.h"
 #include "OnlineSubsystem.h"
 #include "GameFramework/GameModeBase.h"
-#include "GameFramework/GameStateBase.h"
 #include "GameFramework/PlayerState.h"
 #include "Interfaces/OnlineFriendsInterface.h"
 #include "Interfaces/OnlineSessionInterface.h"
 #include "steam/steam_api.h"
-#include "Utils/PartyGameUtils.h"
-#include "Utils/Macros/Macros.h"
 
 #define NOT(x) (0 == (x))
 
