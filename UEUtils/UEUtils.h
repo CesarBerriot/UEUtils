@@ -17,7 +17,7 @@ class UEnhancedInputLocalPlayerSubsystem;
 namespace UEUtils
 {
 	template <class TObjectClass, typename... TArgs> FORCEINLINE TObjectClass & GetChecked(TObjectClass * const & _object, WIDECHAR const * const & _checkMsg, TArgs... _args);
-	FORCEINLINE UEnhancedInputLocalPlayerSubsystem * GetEnhancedInputLocalPlayerSubsystem(ARG_WORLD);
+	UEnhancedInputLocalPlayerSubsystem * GetEnhancedInputLocalPlayerSubsystem(ARG_WORLD);
 	template <class T = UEUtilsDefaultGMType> FORCEINLINE T * GetGameMode(ARG_WORLD);
 	template <class T = UEUtilsDefaultGSType> FORCEINLINE T * GetGameState(ARG_WORLD);
 	template <class T = UEUtilsDefaultGameInstanceType> FORCEINLINE T * GetGameInstance(ARG_WORLD);
