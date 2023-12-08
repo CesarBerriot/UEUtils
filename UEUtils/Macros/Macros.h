@@ -1,5 +1,19 @@
 #pragma once
 
+#pragma region Assignment Conditions
+// epic games go fuck yourself
+#define ifa(x) if((bool)(x))
+#define whilea(x) while((bool)(x))
+#define fora(a, b, c) for(a; (bool)(c); c)
+#define asserta(x) assert((bool)(x))
+#define checka(x) check((bool)(x))
+#define checkaf(x, ...) check((bool)(x), __VA_ARGS__)
+#define verifya(x) verify((bool)(x))
+#define verifyaf(x, ...) verifyf((bool)(x), __VA_ARGS__)
+#define ensurea(x) ensure((bool)(x))
+#define ensureaMsgf(x, ...) ensureMsgf((bool)(x), __VA_ARGS__)
+#pragma endregion Assignment Conditions
+
 #pragma region Template Conditions
 //TODO move this to the Templates namespace and make an actual type
 #define TIsUObjectPtr(x)\
