@@ -4,33 +4,36 @@
 FILE * cin = nullptr;
 FILE * cout = nullptr;
 
-bool UEUtils::Console::ConsoleExists() { return (bool)GetConsoleWindow(); } //TODO TEST - UNTESTED CODE
+bool UEUtils::Console::ConsoleExists() { return (bool)GetConsoleWindow(); }
 
 bool UEUtils::Console::CreateConsole()
 {
 	if(ConsoleExists() || !AllocConsole())
 		return false;
-	// TODO FIX ////////////////////////////////////////////////////////////////////////
-	// V ORIGINAL V (broken - lags the console fsr)	////////////////////////////////////
-	// cin = fopen("CONIN$", "r"); /////////////////////////////////////////////////////
-	// cout = freopen("CONOUT$", "w", stdout); /////////////////////////////////////////
-	// ↓ SKETCHY FIX ↓ (will break if stdin or std get used by another piece of code)///
-	freopen("CONIN$", "r", stdin); /////////////////////////////////////////////////////
-	freopen("CONOUT$", "w", stdout); ///////////////////////////////////////////////////
-	cin = stdin; ///////////////////////////////////////////////////////////////////////
-	cout = stdout; /////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
+	// TODO FIX ///////////////////////////////////////////////////////////////////////////
+	// V ORIGINAL V (broken - lags the console fsr)	///////////////////////////////////////
+	// cin = fopen("CONIN$", "r"); ////////////////////////////////////////////////////////
+	// cout = freopen("CONOUT$", "w", stdout); ////////////////////////////////////////////
+	// ↓ SKETCHY FIX ↓ (will break if stdin or stdout get used by another piece of code)///
+	freopen("CONIN$", "r", stdin); ////////////////////////////////////////////////////////
+	freopen("CONOUT$", "w", stdout); //////////////////////////////////////////////////////
+	cin = stdin; //////////////////////////////////////////////////////////////////////////
+	cout = stdout; ////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////
 	system("cls");
 	return cin && cout;
 }
 
 bool UEUtils::Console::KillConsole()
 {
-	//TODO TEST - UNTESTED CODE
-	return ConsoleExists() && FreeConsole() && fclose(cin) && fclose(cout) && ((bool)(cin = nullptr) || (bool)(cout = nullptr) || true);
+	return ConsoleExists()
+	       && !fclose(cin) // returns non-zero on failure
+	       && !fclose(cout) // returns non-zero on failure
+	       && FreeConsole()
+	       && ((bool)(cin = nullptr) || (bool)(cout = nullptr) || true);
 }
 
-bool UEUtils::Console::Log(FString const & _str)
+bool UEUtils::Console::Log(FString const & _msg)
 {
 	if(!ConsoleExists())
 		return false;
@@ -48,10 +51,16 @@ else\
 	fputchar('0');\
 	fputchar('0' + (uint8)_timeCode.Nbr);\
 }
-	pc('[')pn(Hours)pc(':')pn(Minutes)pc(':')pn(Seconds)pc(']')
+	pc('[')
+	pn(Hours)
+	pc(':')
+	pn(Minutes)
+	pc(':')
+	pn(Seconds)
+	pc(']')
 	UE_POP_MACRO("pn")
 	UE_POP_MACRO("pc")
-	fwprintf(cout, L" LOG : %ls\n", *_str);
+	fwprintf(cout, L" LOG : %ls\n", *_msg);
 	//fwprintf(cout, L"[%i:%i:%i] LOG : %ls\n", _timeCode.Hours, _timeCode.Minutes, _timeCode.Seconds, *_str);
 	free(_buffer);
 	return true;
