@@ -88,8 +88,10 @@ namespace UEUtils::Console
 
 #include "Internal/XMacros/UndefAll.def"
 
+#ifndef UEUTILS_NO_CONSOLE
 template <typename TFmtStr, typename... TArgs>
 FORCEINLINE bool UEUtils::Console::LogF(TFmtStr const & _format, TArgs... _args) { return Log(FString::Printf(_format, _args...)); }
+#endif /*UEUTILS_NO_CONSOLE*/
 #endif /*CONSOLE_LOG_LIBRARY_FUNCTIONS_GUARD*/
 
 #include "Internal/XMacros/PopMacros.def"

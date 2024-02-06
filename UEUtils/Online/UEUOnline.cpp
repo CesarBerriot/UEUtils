@@ -52,7 +52,12 @@ bool Online::CreateSession()
 	_settings.bShouldAdvertise = true;
 	_settings.NumPublicConnections = 4;
 	_settings.bIsLANMatch = IOnlineSubsystem::Get()->GetSubsystemName() == "NULL";
-	return IOnlineSubsystem::Get()->GetSessionInterface()->CreateSession(0, FName{ SESSION_NAME }, _settings);
+	if(!IOnlineSubsystem::Get()->GetSessionInterface()->CreateSession(0, FName{ SESSION_NAME }, _settings))
+		return false;
+	TSharedRef<FOnlineSessionSearch> _searchSettings = MakeShared<FOnlineSessionSearch>();
+	return true;
+	/*return IOnlineSubsystem::Get()->GetSessionInterface()->StartMatchmaking(
+		{ Online::GetSelfUniqueNetID(GWorld).ToSharedRef() }, FName{ SESSION_NAME }, _settings, _searchSettings);*/
 }
 
 bool Online::InviteFriend(FString _friendDisplayName)

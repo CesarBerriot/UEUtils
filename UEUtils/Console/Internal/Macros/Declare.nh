@@ -2,6 +2,12 @@
 #error This header is internal to the Console Log Library. If you meant to use this library, include the main header instead.
 #endif
 
-#define DECLARE(Name) \
-TEMPLATE bool Name(ARGS_DECL); \
-TEMPLATE FORCEINLINE bool Name##Checked(ARGS_DECL) { verify(Name(ARGS_USE)); return true; }
+#ifdef UEUTILS_NO_CONSOLE
+	#define DECLARE(Name) \
+	TEMPLATE FORCEINLINE bool Name(ARGS_DECL) { return true; } \
+	TEMPLATE FORCEINLINE bool Name##Checked(ARGS_DECL) { return true; }
+#else
+	#define DECLARE(Name) \
+	TEMPLATE bool Name(ARGS_DECL); \
+	TEMPLATE FORCEINLINE bool Name##Checked(ARGS_DECL) { verify(Name(ARGS_USE)); return true; }
+#endif
