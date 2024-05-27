@@ -1,5 +1,7 @@
 #pragma once
 
+#ifndef UE_BUILD_SHIPPING
+
 namespace UEUtils::AssetActions
 {
 	/// SaveAsset() Result
@@ -25,3 +27,5 @@ namespace UEUtils::AssetActions
 	/// Saves the given asset's package. Check out the documentation of **ESaveError** for detailed information about the results.
 	ESaveError SaveAsset(UObject * Asset);
 };
+
+#endif // !defined(UE_BUILD_SHIPPING)

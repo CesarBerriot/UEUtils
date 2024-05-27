@@ -1,5 +1,7 @@
 ﻿#include "UEUtils.h"
 #include "EnhancedInputSubsystems.h"
+#include "Engine/LocalPlayer.h"
+#include "GameFramework/PlayerController.h"
 #include "Kismet/KismetSystemLibrary.h"
 
 UEnhancedInputLocalPlayerSubsystem * UEUtils::GetEnhancedInputLocalPlayerSubsystem(UWorld const * const & _world)

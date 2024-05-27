@@ -1,5 +1,7 @@
 #include "AssetActions.h"
 
+#ifndef UE_BUILD_SHIPPING
+
 #include "SourceControlHelpers.h"
 #include "Windows.h"
 
@@ -40,3 +42,5 @@ namespace UEUtils::AssetActions
 		return Success ? ESaveError::Success : ESaveError::ErrorSavePackageFail;
 	}
 }
+
+#endif // !defined(UE_BUILD_SHIPPING)
